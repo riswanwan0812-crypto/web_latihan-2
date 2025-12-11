@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DRIVTING Fashion Store</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- FontAwesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+/* ------------------------------------
+    GLOBAL STYLE + LIGHT MODE
+------------------------------------ */
+body {
+    margin: 0;
+    font-family: Poppins, sans-serif;
+    background: #ffffff;
+    color: #222;
+    transition: 0.3s ease-in-out;
+}
+
+header {
+    background: #111;
+    color: white;
+    padding: 18px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 26px;
+    letter-spacing: 2px;
+}
+
+nav ul {
+    display: flex;
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+}
+
+nav a:hover {
+    color: #ffcc00;
+}
+
+.dark-toggle {
+    padding: 8px 14px;
+    background: #222;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* HERO */
+.hero {
+    margin-top: 70px;
+    background: url('https://i.ibb.co/4p8jLvn/fashion-header.jpg') center/cover;
+    height: 85vh;
+    display: flex;
+    align-items: center;
+    color: white;
+    padding-left: 50px;
+}
+
+.hero h1 {
+    font-size: 58px;
+    margin: 0;
+}
+
+.hero p {
+    font-size: 18px;
+    max-width: 450px;
+}
+
+.button-main {
+    margin-top: 20px;
+    padding: 12px 24px;
+    border: none;
+    background: #ffcc00;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* SECTIONS */
+section {
+    padding: 80px 40px;
+    max-width: 1300px;
+    margin: auto;
+}
+
+/* CATEGORY GRID */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+    gap: 20px;
+}
+
+.category-box {
+    padding: 20px;
+    background: #f5f5f5;
+    border-radius: 12px;
+    text-align: center;
+    transition: 0.3s;
+    font-weight: 600;
+}
+
+.category-box:hover {
+    transform: scale(1.05);
+    background: #ffcc00;
+}
+
+/* GALLERY */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+    gap: 20px;
+}
+
+.gallery-item img {
+    width: 100%;
+    border-radius: 10px;
+    height: 300px;
+    object-fit: cover;
+    transition: 0.4s;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+/* CART POPUP */
+#cartModal {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background: white;
+    padding: 20px;
+    width: 320px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,.2);
+    display: none;
+    z-index: 2000;
+}
+
+#cartItems div {
+    margin-bottom: 10px;
+}
+
+/* TRACKING BOX */
+.track-box {
+    background: #111;
+    color: white;
+    padding: 25px;
+    border-radius: 8px;
+}
+
+.track-box input, .track-box select {
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.track-box button {
+    width: 100%;
+    padding: 12px;
+    background: #ffcc00;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+}
+
+/* FOOTER */
+footer {
+    background: #111;
+    color: white;
+    padding: 30px;
+    text-align: center;
+    margin-top: 50px;
+}
+
+/* DARK MODE */
+body.dark {
+    background: #111;
+    color: #eee;
+}
+
+body.dark header {
+    background: #000;
+}
+
+body.dark .category-box {
+    background: #222;
+}
+
+body.dark .category-box:hover {
+    background: #ffcc00;
+    color: #111;
+}
+
+body.dark .track-box {
+    background: #222;
+}
+
+body.dark #cartModal {
+    background: #222;
+    color: white;
+}
+
+/* RESPONSIVE */
+@media(max-width: 700px){
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+    .hero {
+        text-align: center;
+        padding-left: 20px;
+        justify-content: center;
+    }
+    .hero h1 { font-size: 40px; }
+}
+/* CONTACT SECTION NEW DESIGN */
+.contact-section {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.title-contact {
+    margin-bottom: 50px;
+    font-weight: 600;
+    font-size: 32px;
+}
+
+.contact-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+    padding: 0 20px;
+}
+
+.contact-card {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 35px 25px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.15);
+    transition: 0.3s;
+}
+
+body.dark .contact-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.contact-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+}
+
+.contact-card i {
+    font-size: 45px;
+    margin-bottom: 15px;
+    color: #ffcc00;
+}
+
+.contact-card h3 {
+    margin: 10px 0;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.contact-card p {
+    opacity: 0.8;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.contact-btn {
+    display: inline-block;
+    padding: 12px 20px;
+    background: #ffcc00;
+    color: #111;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.contact-btn:hover {
+    background: #fff;
+    color: #111;
+    transform: scale(1.07);
+}
+/* ===== NEON CONTACT DESIGN ===== */
+
+.contact-section {
+    text-align: center;
+    margin-top: 60px;
+    padding-bottom: 80px;
+}
+
+.title-contact {
+    font-size: 34px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    text-shadow: 0 0 10px #ffcc00;
+}
+
+/* Grid Cards */
+.contact-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+    padding: 0 20px;
+    margin-bottom: 50px;
+}
+
+/* Card styling */
+.contact-card {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    border-radius: 15px;
+    padding: 30px 20px;
+    transition: 0.3s;
+}
+
+.contact-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 0 25px #ffcc00;
+}
+
+.contact-card i {
+    font-size: 50px;
+    color: #ffcc00;
+    margin-bottom: 12px;
+}
+
+.contact-btn {
+    padding: 12px 22px;
+    background: #ffcc00;
+    color: #000;
+    text-decoration: none;
+    border-radius: 8px;
+    display: inline-block;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.contact-btn:hover {
+    background: #fff;
+    transform: scale(1.07);
+}
+
+/* MAP */
+.map-wrapper {
+    max-width: 900px;
+    margin: 40px auto;
+}
+
+.map-wrapper h3 {
+    margin-bottom: 15px;
+    font-size: 22px;
+}
+
+/* FORM */
+.contact-form-wrapper {
+    max-width: 700px;
+    margin: 50px auto;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+
+.neon-btn {
+    background: #ffcc00;
+    color: #000;
+    font-weight: bold;
+}
+
+.neon-btn:hover {
+    box-shadow: 0 0 20px #ffcc00;
+}
+
+/* FLOATING WHATSAPP BUTTON */
+.floating-contact {
+    position: fixed;
+    right: 20px;
+    bottom: 25px;
+    background: #25D366;
+    padding: 15px;
+    border-radius: 50%;
+    color: white;
+    font-size: 30px;
+    z-index: 999;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    transition: 0.3s;
+}
+
+.floating-contact:hover {
+    transform: scale(1.15);
+}
+
+/* ===== ANIMATION SYSTEM ===== */
+
+[data-animate] {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: 0.8s ease-out;
+}
+
+[data-animate].active {
+    opacity: 1;
+    transform: translateY(0);
+}
+/* ===== PREMIUM GOLD BRAND ===== */
+:root {
+    --gold: #ffcc00;
+    --gold-light: #ffe680;
+    --gold-dark: #b39500;
+
+    --dark-bg: #0f0f0f;
+    --dark-card: rgba(255,255,255,0.05);
+    --dark-border: rgba(255,255,255,0.08);
+}
+
+/* ===== AUTO DARK MODE SYSTEM ===== */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: var(--dark-bg);
+        color: #fff;
+    }
+    .contact-card {
+        background: var(--dark-card) !important;
+        border-color: var(--dark-border) !important;
+    }
+    .contact-btn {
+        background: var(--gold) !important;
+        color: #000 !important;
+    }
+    .title-contact {
+        color: var(--gold-light);
+        text-shadow: 0 0 15px var(--gold);
+    }
+}
+
+/* ===== OPTIONAL MANUAL DARK MODE SWITCH ===== */
+.dark-mode body {
+    background: var(--dark-bg);
+    color: white;
+}
+
+/* ===== ICON ANIMATION ===== */
+
+.contact-card i {
+    font-size: 50px;
+    color: var(--gold);
+    margin-bottom: 15px;
+
+    /* ICON ANIMATION */
+    animation: floatPulse 3s ease-in-out infinite;
+}
+
+/* Floating + glow pulse */
+@keyframes floatPulse {
+    0% { transform: translateY(0); filter: drop-shadow(0 0 5px var(--gold-light)); }
+    50% { transform: translateY(-8px); filter: drop-shadow(0 0 18px var(--gold)); }
+    100% { transform: translateY(0); filter: drop-shadow(0 0 5px var(--gold-light)); }
+}
+
+/* ===== TITLE GOLD EFFECT ===== */
+.title-contact {
+    font-size: 34px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    color: var(--gold-dark);
+    text-shadow: 0 0 10px var(--gold);
+}
+
+/* ===== CARDS ===== */
+.contact-card {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 35px 25px;
+    border-radius: 15px;
+    transition: 0.3s;
+    border: 1px solid rgba(255,255,255,0.15);
+}
+
+.contact-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 0 28px var(--gold);
+}
+
+/* ===== MAP WRAPPER ===== */
+.map-wrapper iframe {
+    border: 2px solid var(--gold);
+    box-shadow: 0 0 20px rgba(255,204,0,0.4);
+}
+
+/* ===== BUTTON ===== */
+.contact-btn {
+    background: var(--gold);
+    padding: 12px 25px;
+    border-radius: 10px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #000;
+    transition: 0.3s;
+}
+
+.contact-btn:hover {
+    transform: scale(1.08);
+    background: var(--gold-light);
+    box-shadow: 0 0 20px var(--gold);
+}
+
+/* ===== FORM INPUT ===== */
+.contact-form input,
+.contact-form textarea {
+    border: 1px solid var(--gold-dark);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 10px var(--gold);
+}
+
+/* ===== FLOATING WHATSAPP BUTTON ===== */
+.floating-contact {
+    background: var(--gold);
+    color: #000;
+    animation: floatPulse 4s infinite;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">XXWAN STORE</div>
+    <nav>
+        <ul>
+            <li><a href="#category">Kategori</a></li>
+            <li><a href="#gallery">Produk</a></li>
+            <li><a href="#tracking">Tracking</a></li>
+            <li><a href="#contact">Kontak</a></li>
+        </ul>
+    </nav>
+    <div class="dark-toggle" onclick="toggleDark()"><i class="fas fa-moon"></i></div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+    <div>
+        <h1>Fashion Premium DRIVTING</h1>
+        <p>Koleksi pakaian terbaik, desain modern, dan siap meningkatkan gaya harianmu.</p>
+        <button class="button-main" onclick="location.href='#gallery'">Belanja Sekarang</button>
+    </div>
+</div>
+
+<!-- CATEGORY -->
+<section id="category">
+    <h2>.01 Kategori DRIVTING</h2>
+
+    <div class="category-grid">
+        <div class="category-box">Kaos Premium</div>
+        <div class="category-box">Kemeja</div>
+        <div class="category-box">Hoodie & Sweater</div>
+        <div class="category-box">Fashion Wanita</div>
+        <div class="category-box">Fashion Anak</div>
+        <div class="category-box">Baju Couple</div>
+        <div class="category-box">Outerwear</div>
+        <div class="category-box">Aksesoris</div>
+    </div>
+</section>
+
+<!-- GALLERY WITH ADD TO CART -->
+<section id="gallery">
+    <h2>.02 Produk DRIVTING</h2>
+
+    <div class="gallery">
+
+        <div class="gallery-item">
+            <img src="iwan.jpeg">
+            <button onclick="addToCart('Kaos Hitam Premium', 120000)">+ Keranjang</button>
+        </div>
+
+        <div class="gallery-item">
+            <img src="logo2.png">
+            <button onclick="addToCart('Kemeja Casual', 170000)">+ Keranjang</button>
+        </div>
+
+        <div class="gallery-item">
+            <img src="images.jpg">
+            <button onclick="addToCart('Hoodie DRV', 220000)">+ Keranjang</button>
+        </div>
+
+        <div class="gallery-item">
+            <img src="J">
+            <button onclick="addToCart('Blouse Wanita', 130000)">+ Keranjang</button>
+        </div>
+
+    </div>
+</section>
+
+<!-- CART MODAL -->
+<div id="cartModal">
+    <h3>Keranjang</h3>
+    <div id="cartItems"></div>
+    <strong id="cartTotal">Total: Rp 0</strong><br><br>
+    <button onclick="checkout()">Checkout WhatsApp</button>
+</div>
+
+<!-- TRACKING -->
+<section id="tracking">
+    <h2>.03 Tracking Ekspedisi</h2>
+    <div class="track-box">
+        <input type="text" id="resi" placeholder="Masukkan Nomor Resi">
+        <select id="kurir">
+            <option value="jne">JNE</option>
+            <option value="jnt">J&T</option>
+            <option value="sicepat">SiCepat</option>
+            <option value="anteraja">AnterAja</option>
+        </select>
+        <button onclick="tracking()">Lacak Paket</button>
+    </div>
+</section>
+
+<!-- CONTACT -->
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+
+    <h2 class="title-contact" data-animate="fade-up">.04 Kontak & Pemesanan</h2>
+
+    <!-- Contact Cards -->
+    <div class="contact-container">
+
+        <!-- WhatsApp -->
+        <div class="contact-card" data-animate="slide-up">
+            <i class="fa-brands fa-whatsapp"></i>
+            <h3>WhatsApp</h3>
+            <p>Chat langsung untuk pemesanan</p>
+            <a class="contact-btn" href="https://wa.me/6281234567890" target="_blank">
+                Chat WhatsApp
+            </a>
+        </div>
+
+        <!-- Instagram -->
+        <div class="contact-card" data-animate="slide-up">
+            <i class="fa-brands fa-instagram"></i>
+            <h3>Instagram</h3>
+            <p>Lihat koleksi terbaru DRIVTING</p>
+            <a class="contact-btn" href="https://instagram.com/drivting" target="_blank">
+                Kunjungi Instagram
+            </a>
+        </div>
+
+        <!-- Email -->
+        <div class="contact-card" data-animate="slide-up">
+            <i class="fa-regular fa-envelope"></i>
+            <h3>Email</h3>
+            <p>Kerja sama & pertanyaan</p>
+            <a class="contact-btn" href="mailto:drivting.store@gmail.com">
+                Kirim Email
+            </a>
+        </div>
+
+    </div>
+
+    <!-- MAP -->
+    <div class="map-wrapper" data-animate="fade-up">
+        <h3>Lokasi Toko Kami</h3>
+        <iframe 
+            src="https://maps.google.com/maps?q=Jakarta&t=&z=13&ie=UTF8&iwloc=&output=embed"
+            width="100%"
+            height="350"
+            frameborder="0"
+            style="border-radius:15px;">
+        </iframe>
+    </div>
+
+    <!-- EMAIL FORM -->
+    <div class="contact-form-wrapper" data-animate="fade-up">
+        <h3>Kirim Pesan Langsung</h3>
+
+        <form action="mailto:drivting.store@gmail.com" method="POST" enctype="text/plain" class="contact-form">
+            <input type="text" name="name" placeholder="Nama Anda" required>
+            <input type="email" name="email" placeholder="Email Anda" required>
+            <textarea name="pesan" rows="4" placeholder="Tulis pesan Anda..." required></textarea>
+            <button type="submit" class="contact-btn neon-btn">Kirim Pesan</button>
+        </form>
+    </div>
+
+</section>
+
+<!-- FLOATING CONTACT BUTTON -->
+<a href="https://wa.me/6281234567890" target="_blank" class="floating-contact">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+
+
+<footer>© 2025 DRIVTING Fashion Store</footer>
+
+<!-- JAVASCRIPT -->
+<script>
+/* DARK MODE */
+function toggleDark(){
+    document.body.classList.toggle("dark");
+}
+
+/* CART SYSTEM */
+let cart = [];
+
+function addToCart(name, price){
+    cart.push({name, price});
+    updateCart();
+    document.getElementById('cartModal').style.display = "block";
+}
+
+function updateCart(){
+    let cartItems = document.getElementById('cartItems');
+    cartItems.innerHTML = "";
+
+    let total = 0;
+
+    cart.forEach((item, i)=>{
+        cartItems.innerHTML += `
+            <div>${item.name} - Rp ${item.price.toLocaleString()}
+            <button onclick="removeItem(${i})">X</button></div>
+        `;
+        total += item.price;
+    });
+
+    document.getElementById('cartTotal').innerText = 
+        "Total: Rp " + total.toLocaleString();
+}
+
+function removeItem(i){
+    cart.splice(i,1);
+    updateCart();
+}
+
+/* WHATSAPP CHECKOUT */
+function checkout(){
+    if(cart.length === 0){
+        alert("Keranjang kosong!");
+        return;
+    }
+
+    let pesan = "Halo DRIVTING, saya ingin memesan:%0A";
+
+    cart.forEach(item=>{
+        pesan += "- " + item.name + " (" + item.price.toLocaleString() + ")%0A";
+    });
+
+    let total = cart.reduce((a,b)=>a+b.price,0);
+
+    pesan += "%0ATotal: Rp " + total.toLocaleString();
+
+    window.open("https://wa.me/6281234567890?text=" + pesan);
+}
+
+/* TRACKING SYSTEM */
+function tracking(){
+    let resi = document.getElementById("resi").value;
+    let kurir = document.getElementById("kurir").value;
+
+    if(resi === ""){
+        alert("Masukkan nomor resi!");
+        return;
+    }
+
+    let url = "";
+
+    if(kurir === "jne"){
+        url = "https://www.jne.co.id/id/tracking/trace?resi=" + resi;
+    }
+    if(kurir === "jnt"){
+        url = "https://www.jet.co.id/track?waybills=" + resi;
+    }
+    if(kurir === "sicepat"){
+        url = "https://www.sicepat.com/checkwaybill?waybill=" + resi;
+    }
+    if(kurir === "anteraja"){
+        url = "https://anteraja.id/tracking/" + resi;
+    }
+
+    window.open(url, "_blank");
+}
+document.addEventListener("scroll", () => {
+    document.querySelectorAll("[data-animate]").forEach(el => {
+        let pos = el.getBoundingClientRect().top;
+        if (pos < window.innerHeight - 100) {
+            el.classList.add("active");
+        }
+    });
+});
+// DARK MODE AUTO (mengikuti preferensi perangkat)
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+if (prefersDark.matches) {
+    document.body.classList.add('dark-auto');
+}
+
+// OPTIONAL: Manual Toggle (bisa ditambahkan jika ingin)
+function toggleDarkMode() {
+    document.body.classList.toggle("dark-mode");
+}
+
+</script>
+
+</body>
+</html>
